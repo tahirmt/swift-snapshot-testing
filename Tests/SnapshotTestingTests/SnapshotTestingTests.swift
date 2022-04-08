@@ -43,6 +43,70 @@ final class SnapshotTestingTests: XCTestCase {
     """)
   }
 
+  func testAnyNSObjectSubclassClass() {
+    class User: NSObject { let id = 1, name = "Blobby", bio: String = "Blobbed around the world." }
+    let user = User()
+    assertSnapshot(matching: user, as: .dump)
+    _assertInlineSnapshot(matching: user, as: .dump, with: """
+    - <_TtCFC20SnapshotTestingTests20SnapshotTestingTests28testAnyNSObjectSubclassClassFT_T_L_4User>
+    """)
+
+    assertSnapshot(matching: user, as: .dump(renderChildren: true))
+    _assertInlineSnapshot(matching: user, as: .dump(renderChildren: true), with: """
+    ▿ <_TtCFC20SnapshotTestingTests20SnapshotTestingTests28testAnyNSObjectSubclassClassFT_T_L_4User>
+      - id: 1
+      - name: "Blobby"
+      - bio: "Blobbed around the world."
+    """)
+  }
+
+  func testAnyIgnoringChildren() {
+    class User: AnySnapshotStringConvertibleIgnoreChildNodes { let id = 1, name = "Blobby", bio: String = "Blobbed around the world." }
+    let user = User()
+    assertSnapshot(matching: user, as: .dump)
+    _assertInlineSnapshot(matching: user, as: .dump, with: """
+    - User
+    """)
+
+    assertSnapshot(matching: user, as: .dump(renderChildren: true))
+    _assertInlineSnapshot(matching: user, as: .dump(renderChildren: true), with: """
+    - User
+    """)
+  }
+
+  func testAnyDumpingChildren() {
+    class User: NSObject, AnySnapshotStringConvertibleDumpChildNodes { let id = 1, name = "Blobby", bio: String = "Blobbed around the world." }
+    let user = User()
+    assertSnapshot(matching: user, as: .dump)
+    _assertInlineSnapshot(matching: user, as: .dump, with: """
+    ▿ <_TtCFC20SnapshotTestingTests20SnapshotTestingTests22testAnyDumpingChildrenFT_T_L_4User>
+      - id: 1
+      - name: "Blobby"
+      - bio: "Blobbed around the world."
+    """)
+  }
+
+  func testAnyExcludedChild() {
+    struct User: AnySnapshotStringConvertibleExcludedNodesProvider { let id: Int, name: String, bio: String; static var excludedNodes: [String] = ["id"] }
+    let user = User(id: 1, name: "Blobby", bio: "Blobbed around the world.")
+    assertSnapshot(matching: user, as: .dump)
+    _assertInlineSnapshot(matching: user, as: .dump, with: """
+    ▿ User
+      - bio: "Blobbed around the world."
+      - name: "Blobby"
+    """)
+  }
+
+  func testAnyIncludedChild() {
+    struct User: AnySnapshotStringConvertibleIncludedNodesProvider { let id: Int, name: String, bio: String; static var includedNodes: [String]? = ["id"] }
+    let user = User(id: 1, name: "Blobby", bio: "Blobbed around the world.")
+    assertSnapshot(matching: user, as: .dump)
+    _assertInlineSnapshot(matching: user, as: .dump, with: """
+    ▿ User
+      - id: 1
+    """)
+  }
+
   @available(macOS 10.13, tvOS 11.0, *)
   func testAnyAsJson() throws {
     struct User: Encodable { let id: Int, name: String, bio: String }
@@ -248,7 +312,7 @@ final class SnapshotTestingTests: XCTestCase {
     }
     #endif
   }
-  
+
   func testNSViewWithLayer() {
     #if os(macOS)
     let view = NSView()
@@ -522,25 +586,25 @@ final class SnapshotTestingTests: XCTestCase {
       assertSnapshot(matching: viewController, as: .image(on: .iPad10_2(.landscape(splitView: .twoThirds))), named: "ipad-10-2-66-split-landscape")
       assertSnapshot(matching: viewController, as: .image(on: .iPad10_2(.portrait(splitView: .oneThird))), named: "ipad-10-2-33-split-portrait")
       assertSnapshot(matching: viewController, as: .image(on: .iPad10_2(.portrait(splitView: .twoThirds))), named: "ipad-10-2-66-split-portrait")
-      
+
       assertSnapshot(matching: viewController, as: .image(on: .iPadPro10_5(.landscape(splitView: .oneThird))), named: "ipad-pro-10inch-33-split-landscape")
       assertSnapshot(matching: viewController, as: .image(on: .iPadPro10_5(.landscape(splitView: .oneHalf))), named: "ipad-pro-10inch-50-split-landscape")
       assertSnapshot(matching: viewController, as: .image(on: .iPadPro10_5(.landscape(splitView: .twoThirds))), named: "ipad-pro-10inch-66-split-landscape")
       assertSnapshot(matching: viewController, as: .image(on: .iPadPro10_5(.portrait(splitView: .oneThird))), named: "ipad-pro-10inch-33-split-portrait")
       assertSnapshot(matching: viewController, as: .image(on: .iPadPro10_5(.portrait(splitView: .twoThirds))), named: "ipad-pro-10inch-66-split-portrait")
-      
+
       assertSnapshot(matching: viewController, as: .image(on: .iPadPro11(.landscape(splitView: .oneThird))), named: "ipad-pro-11inch-33-split-landscape")
       assertSnapshot(matching: viewController, as: .image(on: .iPadPro11(.landscape(splitView: .oneHalf))), named: "ipad-pro-11inch-50-split-landscape")
       assertSnapshot(matching: viewController, as: .image(on: .iPadPro11(.landscape(splitView: .twoThirds))), named: "ipad-pro-11inch-66-split-landscape")
       assertSnapshot(matching: viewController, as: .image(on: .iPadPro11(.portrait(splitView: .oneThird))), named: "ipad-pro-11inch-33-split-portrait")
       assertSnapshot(matching: viewController, as: .image(on: .iPadPro11(.portrait(splitView: .twoThirds))), named: "ipad-pro-11inch-66-split-portrait")
-      
+
       assertSnapshot(matching: viewController, as: .image(on: .iPadPro12_9(.landscape(splitView: .oneThird))), named: "ipad-pro-12inch-33-split-landscape")
       assertSnapshot(matching: viewController, as: .image(on: .iPadPro12_9(.landscape(splitView: .oneHalf))), named: "ipad-pro-12inch-50-split-landscape")
       assertSnapshot(matching: viewController, as: .image(on: .iPadPro12_9(.landscape(splitView: .twoThirds))), named: "ipad-pro-12inch-66-split-landscape")
       assertSnapshot(matching: viewController, as: .image(on: .iPadPro12_9(.portrait(splitView: .oneThird))), named: "ipad-pro-12inch-33-split-portrait")
       assertSnapshot(matching: viewController, as: .image(on: .iPadPro12_9(.portrait(splitView: .twoThirds))), named: "ipad-pro-12inch-66-split-portrait")
-      
+
       assertSnapshot(
         matching: viewController, as: .image(on: .iPhoneSe(.landscape)), named: "iphone-se-alternative")
       assertSnapshot(
@@ -991,7 +1055,7 @@ final class SnapshotTestingTests: XCTestCase {
     post.httpBody = Data("pricing[billing]=monthly&pricing[lane]=individual".utf8)
     assertSnapshot(matching: post, as: .raw, named: "post")
     assertSnapshot(matching: post, as: .curl, named: "post-curl")
-    
+
     var postWithJSON = URLRequest(url: URL(string: "http://dummy.restapiexample.com/api/v1/create")!)
     postWithJSON.httpMethod = "POST"
     postWithJSON.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -1017,7 +1081,7 @@ final class SnapshotTestingTests: XCTestCase {
     POST https://www.pointfree.co/subscribe
     Accept: application/json
     Cookie: pf_session={"user_id":"0"}
-    
+
     {
       "pricing" : {
         "billing" : "monthly",
@@ -1051,7 +1115,7 @@ final class SnapshotTestingTests: XCTestCase {
     var view = UIView(frame: rect)
     view.backgroundColor = .red
     assertSnapshot(matching: view, as: .image, named: "noHeight")
-    
+
     rect = CGRect(x: 0, y: 0, width: 0, height: 350)
     view = UIView(frame: rect)
     view.backgroundColor = .green

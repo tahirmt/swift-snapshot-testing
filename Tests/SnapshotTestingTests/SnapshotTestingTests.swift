@@ -43,6 +43,70 @@ final class SnapshotTestingTests: XCTestCase {
     """)
   }
 
+  func testAnyNSObjectSubclassClass() {
+    class User: NSObject { let id = 1, name = "Blobby", bio: String = "Blobbed around the world." }
+    let user = User()
+    assertSnapshot(matching: user, as: .dump)
+    _assertInlineSnapshot(matching: user, as: .dump, with: """
+    - <_TtCFC20SnapshotTestingTests20SnapshotTestingTests28testAnyNSObjectSubclassClassFT_T_L_4User>
+    """)
+
+    assertSnapshot(matching: user, as: .dump(renderChildren: true))
+    _assertInlineSnapshot(matching: user, as: .dump(renderChildren: true), with: """
+    ▿ <_TtCFC20SnapshotTestingTests20SnapshotTestingTests28testAnyNSObjectSubclassClassFT_T_L_4User>
+      - id: 1
+      - name: "Blobby"
+      - bio: "Blobbed around the world."
+    """)
+  }
+
+  func testAnyIgnoringChildren() {
+    class User: AnySnapshotStringConvertibleIgnoreChildNodes { let id = 1, name = "Blobby", bio: String = "Blobbed around the world." }
+    let user = User()
+    assertSnapshot(matching: user, as: .dump)
+    _assertInlineSnapshot(matching: user, as: .dump, with: """
+    - User
+    """)
+
+    assertSnapshot(matching: user, as: .dump(renderChildren: true))
+    _assertInlineSnapshot(matching: user, as: .dump(renderChildren: true), with: """
+    - User
+    """)
+  }
+
+  func testAnyDumpingChildren() {
+    class User: NSObject, AnySnapshotStringConvertibleDumpChildNodes { let id = 1, name = "Blobby", bio: String = "Blobbed around the world." }
+    let user = User()
+    assertSnapshot(matching: user, as: .dump)
+    _assertInlineSnapshot(matching: user, as: .dump, with: """
+    ▿ <_TtCFC20SnapshotTestingTests20SnapshotTestingTests22testAnyDumpingChildrenFT_T_L_4User>
+      - id: 1
+      - name: "Blobby"
+      - bio: "Blobbed around the world."
+    """)
+  }
+
+  func testAnyExcludedChild() {
+    struct User: AnySnapshotStringConvertibleExcludedNodesProvider { let id: Int, name: String, bio: String; static var excludedNodes: [String] = ["id"] }
+    let user = User(id: 1, name: "Blobby", bio: "Blobbed around the world.")
+    assertSnapshot(matching: user, as: .dump)
+    _assertInlineSnapshot(matching: user, as: .dump, with: """
+    ▿ User
+      - bio: "Blobbed around the world."
+      - name: "Blobby"
+    """)
+  }
+
+  func testAnyIncludedChild() {
+    struct User: AnySnapshotStringConvertibleIncludedNodesProvider { let id: Int, name: String, bio: String; static var includedNodes: [String]? = ["id"] }
+    let user = User(id: 1, name: "Blobby", bio: "Blobbed around the world.")
+    assertSnapshot(matching: user, as: .dump)
+    _assertInlineSnapshot(matching: user, as: .dump, with: """
+    ▿ User
+      - id: 1
+    """)
+  }
+
   @available(macOS 10.13, *)
   func testAnyAsJson() throws {
     struct User: Encodable { let id: Int, name: String, bio: String }

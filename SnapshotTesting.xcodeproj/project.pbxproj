@@ -161,6 +161,9 @@
 		C73FDCC778423902C54A39CF /* testCreateSnapshotWithLongerExtendedDelimiter2.1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDE232DB652745F05B478F4 /* testCreateSnapshotWithLongerExtendedDelimiter2.1.swift */; };
 		C774D934C0A4CFDAAB475499 /* testCreateSnapshotWithShorterExtendedDelimiter1.1.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE91B5904B3F67A3A01610C8 /* testCreateSnapshotWithShorterExtendedDelimiter1.1.swift */; };
 		C7A32C62FABEA6CECB907389 /* testUpdateSnapshotWithExtendedDelimiter1.1.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D7D0D81B7E35C6284A3E65 /* testUpdateSnapshotWithExtendedDelimiter1.1.swift */; };
+		C88CAD2B27FFECEA0016CC8C /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88CAD2A27FFECEA0016CC8C /* UIWindow.swift */; };
+		C88CAD2C27FFECEA0016CC8C /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88CAD2A27FFECEA0016CC8C /* UIWindow.swift */; };
+		C88CAD2D27FFECEA0016CC8C /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88CAD2A27FFECEA0016CC8C /* UIWindow.swift */; };
 		C97E2A9B0EC799E08B77B723 /* testUpdateSnapshotWithShorterExtendedDelimiter1.1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD3B175977519BCF6179FD0 /* testUpdateSnapshotWithShorterExtendedDelimiter1.1.swift */; };
 		C9C12C6C91FB96E02BBA8A8F /* testCreateSnapshotWithShorterExtendedDelimiter1.1.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE91B5904B3F67A3A01610C8 /* testCreateSnapshotWithShorterExtendedDelimiter1.1.swift */; };
 		CBC57ED5427F5EBD18FDCEFC /* testCreateSnapshotWithLongerExtendedDelimiter1.1.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA9C51757FC5DC679F5DC72 /* testCreateSnapshotWithLongerExtendedDelimiter1.1.swift */; };
@@ -319,6 +322,7 @@
 		B843712AB555B46BA6E4EC2A /* CaseIterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseIterable.swift; sourceTree = "<group>"; };
 		B8F1FEF91276E0D2BEFD9BC6 /* testCreateSnapshotEscapedNewlineLastLine.1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testCreateSnapshotEscapedNewlineLastLine.1.swift; sourceTree = "<group>"; };
 		C13AB875AB58FF3BCAC1AA66 /* testCreateSnapshotWithExtendedDelimiterSingleLine1.1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testCreateSnapshotWithExtendedDelimiterSingleLine1.1.swift; sourceTree = "<group>"; };
+		C88CAD2A27FFECEA0016CC8C /* UIWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
 		CB124D18325606D35B7027A6 /* NSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSViewController.swift; sourceTree = "<group>"; };
 		D1FE81FC04984B93B0C27FA6 /* testUpdateSnapshot.1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testUpdateSnapshot.1.swift; sourceTree = "<group>"; };
 		D3B960E2B6E4AAE0BA50F27B /* PlistEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistEncoder.swift; sourceTree = "<group>"; };
@@ -523,6 +527,7 @@
 				CB124D18325606D35B7027A6 /* NSViewController.swift */,
 				5580E7AC2CEBEA656780C7A9 /* SceneKit.swift */,
 				4055310797F1D4813ABD0359 /* SpriteKit.swift */,
+				C88CAD2A27FFECEA0016CC8C /* UIWindow.swift */,
 				04F429C62A87AC95E13E2D78 /* String.swift */,
 				7585E299A8FF3416E005E3FD /* SwiftUIView.swift */,
 				2641BBEB31120E3B7FE5EA51 /* UIBezierPath.swift */,
@@ -646,8 +651,6 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1020;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = D9A4BF45876C849A308801A2 /* Build configuration list for PBXProject "SnapshotTesting" */;
 			compatibilityVersion = "Xcode 10.0";
@@ -725,6 +728,7 @@
 				4DCF3527100FE3577AB7074B /* Snapshotting.swift in Sources */,
 				648E0BF61716417CE60ADF13 /* SpriteKit.swift in Sources */,
 				8BDA8D067C1A9BDD7EFB1E78 /* String+SpecialCharacters.swift in Sources */,
+				C88CAD2C27FFECEA0016CC8C /* UIWindow.swift in Sources */,
 				F091F6AC6DA030FD96240A5E /* String.swift in Sources */,
 				AF0B20C84F8CFA4231DAA1E5 /* SwiftUIView.swift in Sources */,
 				42EEB5E183FA787232DCF756 /* UIBezierPath.swift in Sources */,
@@ -765,6 +769,7 @@
 				066041367BD8A6246C1F47F7 /* Snapshotting.swift in Sources */,
 				941758F3457304C1ADDFF981 /* SpriteKit.swift in Sources */,
 				BA6099AF5DBC1D12C3066D14 /* String+SpecialCharacters.swift in Sources */,
+				C88CAD2B27FFECEA0016CC8C /* UIWindow.swift in Sources */,
 				1A0FB107B2820F9B33EFE2BB /* String.swift in Sources */,
 				7A113ED6F1950924A9012428 /* SwiftUIView.swift in Sources */,
 				4CF683A5FA0EDF2C6ABC8B10 /* UIBezierPath.swift in Sources */,
@@ -877,6 +882,7 @@
 				6839408A3D220CC5196456BC /* Snapshotting.swift in Sources */,
 				D08F1EABB0BF974C05E74D8F /* SpriteKit.swift in Sources */,
 				10F68BDF40D553B893C6CB1E /* String+SpecialCharacters.swift in Sources */,
+				C88CAD2D27FFECEA0016CC8C /* UIWindow.swift in Sources */,
 				DC925700DE66F9134D3E47EA /* String.swift in Sources */,
 				E5EA11B0A1E1194E4285920E /* SwiftUIView.swift in Sources */,
 				5E7F4795AFED0D8D4E1D75A6 /* UIBezierPath.swift in Sources */,
@@ -1017,7 +1023,10 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
 				ENABLE_TESTING_SEARCH_PATHS = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited) $(PLATFORM_DIR)/Developer/Library/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1065,7 +1074,10 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
 				ENABLE_TESTING_SEARCH_PATHS = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited) $(PLATFORM_DIR)/Developer/Library/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1146,7 +1158,10 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
 				ENABLE_TESTING_SEARCH_PATHS = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited) $(PLATFORM_DIR)/Developer/Library/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1175,7 +1190,10 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
 				ENABLE_TESTING_SEARCH_PATHS = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited) $(PLATFORM_DIR)/Developer/Library/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1204,7 +1222,10 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
 				ENABLE_TESTING_SEARCH_PATHS = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited) $(PLATFORM_DIR)/Developer/Library/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1313,7 +1334,10 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
 				ENABLE_TESTING_SEARCH_PATHS = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited) $(PLATFORM_DIR)/Developer/Library/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (

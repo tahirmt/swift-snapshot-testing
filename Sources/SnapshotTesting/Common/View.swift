@@ -853,7 +853,6 @@ func prepareWindow(
     window: UIWindow
 ) {
     let size = config.size ?? window.rootViewController?.view.frame.size ?? window.frame.size
-    let controller = window.rootViewController ?? UIViewController()
     window.frame.size = size
 
     if size.width == 0 || size.height == 0 {

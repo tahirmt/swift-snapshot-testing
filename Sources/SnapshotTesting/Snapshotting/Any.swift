@@ -8,8 +8,10 @@ extension Snapshotting where Format == String {
 
   /// A snapshot strategy for comparing any structure based on a sanitized text dump.
   /// - Parameter renderChildren: whether to render all children for all types conforming to `AnySnapshotStringConvertible`
-  public static func dump(renderChildren: Bool) -> Snapshotting {
-    SimplySnapshotting.lines.pullback { snap($0, renderChildren: renderChildren) }
+  /// - Parameter renderSuperClass: whether or not to always prefer the sup
+  public static func dump(renderChildren: Bool,
+                          renderSuperclass: Bool = false) -> Snapshotting {
+    SimplySnapshotting.lines.pullback { snap($0, renderChildren: renderChildren, renderSuperclass: renderSuperclass) }
   }
 }
 
@@ -31,10 +33,28 @@ extension Snapshotting where Format == String {
   }
 }
 
-private func snap<T>(_ value: T, name: String? = nil, indent: Int = 0, renderChildren: Bool = false) -> String {
+extension Mirror {
+  var combinedChildrenWithSupeclass: Mirror.Children {
+    var allChildren = [Mirror.Child]()
+    allChildren.append(contentsOf: self.children)
+    if let superMirror = superclassMirror {
+      allChildren.append(contentsOf: superMirror.children)
+    }
+
+    return Mirror.Children(allChildren)
+  }
+}
+
+private func snap<T>(_ value: T,
+                     name: String? = nil,
+                     indent: Int = 0,
+                     renderChildren: Bool = false,
+                     renderSuperclass: Bool = false) -> String {
   let indentation = String(repeating: " ", count: indent)
   let mirror = Mirror(reflecting: value)
-  var children: Mirror.Children = value is AnySnapshotStringConvertibleIgnoreChildNodes ? Mirror.Children([]) : mirror.children
+  let ignoreChildren = value is AnySnapshotStringConvertibleIgnoreChildNodes
+  let combineSuperclassNodes = renderSuperclass || value is AnySnapshotStringConvertibleIncludeSuperclassNodes
+  var children: Mirror.Children = ignoreChildren ? Mirror.Children([]) : (combineSuperclassNodes ? mirror.combinedChildrenWithSupeclass : mirror.children)
   let count = children.count
   let bullet = count == 0 ? "-" : "▿"
 
@@ -95,7 +115,7 @@ private func snap<T>(_ value: T, name: String? = nil, indent: Int = 0, renderChi
   }
 
   let lines = ["\(indentation)\(bullet) \(name.map { "\($0): " } ?? "")\(description)\n"]
-    + children.map { snap($1, name: $0, indent: indent + 2, renderChildren: renderChildren) }
+  + children.map { snap($1, name: $0, indent: indent + 2, renderChildren: renderChildren, renderSuperclass: renderSuperclass) }
 
   return lines.joined()
 }
@@ -121,6 +141,8 @@ public protocol AnySnapshotStringConvertible {
 public protocol AnySnapshotStringConvertibleDumpChildNodes {}
 /// Implement this protocol to ignore dumping child nodes
 public protocol AnySnapshotStringConvertibleIgnoreChildNodes {}
+
+public protocol AnySnapshotStringConvertibleIncludeSuperclassNodes {}
 
 /// Properties to include child nodes
 public protocol AnySnapshotStringConvertibleIncludedNodesProvider {
@@ -153,15 +175,15 @@ extension Date: AnySnapshotStringConvertible {
 }
 
 extension NSObject: AnySnapshotStringConvertible {
-  #if canImport(ObjectiveC)
+#if canImport(ObjectiveC)
   @objc open var snapshotDescription: String {
     return purgePointers(self.debugDescription)
   }
-  #else
+#else
   open var snapshotDescription: String {
     return purgePointers(self.debugDescription)
   }
-  #endif
+#endif
 }
 
 extension String: AnySnapshotStringConvertible {

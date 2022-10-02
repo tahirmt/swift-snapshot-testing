@@ -1078,11 +1078,11 @@
           ])
         }
         rootViewController.addChild(viewController)
+        viewController.didMove(toParent: rootViewController)
       } else {
         rootViewController = viewController
       }
       rootViewController.setOverrideTraitCollection(traits, forChild: viewController)
-      viewController.didMove(toParent: rootViewController)
 
       window.rootViewController = rootViewController
 

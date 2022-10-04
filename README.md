@@ -203,6 +203,9 @@ targets: [
 
   - [Prefire](https://github.com/BarredEwe/Prefire) generating Snapshot Tests via [Swift Package Plugins](https://github.com/apple/swift-package-manager/blob/main/Documentation/Plugins.md) using SwiftUI `Preview`
   
+  - [SnapshotTestingDump](https://github.com/tahirmt/swift-snapshot-testing-dump) Adds support to use [swift-custom-dump](https://github.com/pointfreeco/swift-custom-dump/) by using `customDump` strategy for `Any`
+
+  - [Nimble-SnapshotTesting](https://github.com/tahirmt/Nimble-SnapshotTesting) adds [Nimble](https://github.com/Quick/Nimble) matchers for SnapshotTesting to be used by Swift Package Manager.
 Have you written your own SnapshotTesting plug-in? [Add it here](https://github.com/pointfreeco/swift-snapshot-testing/edit/master/README.md) and submit a pull request!
   
 ## Related Tools
